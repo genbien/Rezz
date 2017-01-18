@@ -50,7 +50,11 @@
 		</form> -->
 		<!-- {{/unless}} -->
 
-		<div class="flex-container">
+		{{#if firstname}}
+			<h1>{{usrname}} says "{{usrmessage}}"</h1> -->
+		{{/if}}
+
+		<div class="flex-container" action="message">
 			<div class="flex-item">
 				<img src="metro.png" alt="Horaires métro">
 			</div>
@@ -59,9 +63,9 @@
 			</div>
 			<div class="flex-item">
 				<form action="message">
-					<input type="text" name="usr:msg" value="Votre message">
+					<input type="text" name="usrmessage" value="Votre message">
 					<br>
-					<input type="text" name="usr:name" value="Votre nom">
+					<input type="text" name="usrname" value="Votre nom">
 					<br><br>
 					<input type="submit" value="Submit">
 				</form>

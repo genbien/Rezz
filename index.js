@@ -23,12 +23,12 @@ app.set('view engine', 'handlebars');
 
 app.get('/', function (req, res) {
 	Promise.all([
-		q(client, 'get', 'name:first'),
-		q(client, 'get', 'name:last'),
+		q(client, 'get', 'usrmessage'),
+		q(client, 'get', 'usrname'),
 	])
 	.then(function (values) {
-		const [firstname, lastname] = values;
-		res.render('index', { firstname, lastname });
+		const [usrmessage, usrname] = values;
+		res.render('index', { usrmessage, usrname });
 	})
 	.catch(function (err) {
 		res.render('error');
@@ -37,16 +37,16 @@ app.get('/', function (req, res) {
 
 
 
-app.get('/form.js', function (req, res) {
-	const { firstname, lastname } = req.query;
+app.get('/message', function (req, res) {
+	const { usrmessage, usrname } = req.query;
 
 	Promise.all([
-		q(client, 'set', 'name:first', firstname),
-		q(client, 'set', 'name:last', lastname),
+		q(client, 'set', 'usrmessage', usrmessage),
+		q(client, 'set', 'usrname', usrname),
 	])
 	.then(function (reply) {
 		console.log('redis replied', reply);
-		res.render('index', { firstname, lastname });
+		res.render('index', { usrmessage, usrname });
 	})
 	.catch(function (err) {
 		res.render('error');
