@@ -59,16 +59,21 @@
 			</div>
 			<div class="flex-item">
 				{{#if usrname}}
-					<div>
-						<p>
-							{{usrname}} says "{{usrmessage}}"
-						</p>
-					</div>
+					{{#each usrname}}
+						<div>
+							<p>
+								<!-- "{{usrmessage}}"  <i>{{usrname}}</i> -->
+								<!-- {{usrmessage}}  <i>{{usrname}}</i> -->
+								{{@index}}. {{this}}
+							</p>
+						</div>
+					{{/each}}
+					<br><br>
 				{{/if}}
 				<form action="message">
-					<input type="text" name="usrmessage" value="Votre message">
+					<input type="text" name="usrmessage" value="Votre message" onfocus="if (this.value=='Votre message') this.value='';">
 					<br>
-					<input type="text" name="usrname" value="Votre nom">
+					<input type="text" name="usrname" value="Votre nom" onfocus="if (this.value=='Votre nom') this.value='';">
 					<br><br>
 					<input type="submit" value="Submit">
 				</form>
