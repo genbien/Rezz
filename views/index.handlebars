@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<!-- <link rel="stylesheet" type="text/css" href="/style.css"> -->
+		<style>
+			* {
+				margin: 0;
+			}
+
+			body {
+				height: 100%;
+				width: 100%;
+			}
+
+			.flex-container {
+				display: -webkit-flex;
+				display: flex;
+				width: 100%;
+				height: 100%;
+				background-color: #778899;
+			}
+
+			.flex-item {
+				background-color: #fff;
+				flex-grow: 1;
+				align-items: stretch;
+				border-width: 3px;
+				border-style: solid;
+				border-color: rgba(0,0,0,.3);
+				margin: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- {{#if firstname}} -->
+		<!-- <img src="https://shechive.files.wordpress.com/2012/02/a-kitty-cat-7.jpg"/> -->
+		<!-- <a class="twitter-timeline" href="https://twitter.com/mairie5paris?lang=fr">A Twitter List by TwitterDev</a>
+		<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+		<!-- <h1>Hello {{firstname}} {{lastname}}</h1> -->
+		<!-- {{/if}} -->
+
+		<!-- {{#unless firstname}} -->
+		<!-- <form action="form.js">
+			First name:<br>
+			<input type="text" name="firstname" value="first">
+			<br>
+			Last name:<br>
+			<input type="text" name="lastname" value="last">
+			<br><br>
+			<input type="submit" value="Submit">
+		</form> -->
+		<!-- {{/unless}} -->
+
+		<div class="flex-container">
+			<div class="flex-item">
+				<img src="metro.png" alt="Horaires métro">
+			</div>
+			<div class="flex-item">
+				mon immeuble
+			</div>
+			<div class="flex-item">
+				<form action="message">
+					<input type="text" name="usr:msg" value="Votre message">
+					<br>
+					<input type="text" name="usr:name" value="Votre nom">
+					<br><br>
+					<input type="submit" value="Submit">
+				</form>
+			</div>
+		</div>
+
+
+	</body>
+</html>

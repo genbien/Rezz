@@ -1,30 +1,73 @@
+// express and handlebars template
 const express = require('express')
-var redis  = require("redis"),
-    client = redis.createClient();
+const exphbs = require('express-handlebars')
+
+// promises, promises
+const { t, q } = require('./utils.js');
+
+// redis
+const redis  = require("redis");
+const client = redis.createClient();
+
 
 client.on('error', function (err) {
-  console.log('Error ' + err)
+	console.log('Error ' + err)
+})
+
+const app = express()
+
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
+// app.set('view engine', 'pug')
+
+app.get('/', function (req, res) {
+	Promise.all([
+		q(client, 'get', 'name:first'),
+		q(client, 'get', 'name:last'),
+	])
+	.then(function (values) {
+		const [firstname, lastname] = values;
+		res.render('index', { firstname, lastname });
+	})
+	.catch(function (err) {
+		res.render('error');
+	});
 })
 
 
-// const app = express()
 
-// app.get('/', function (req, res) {
-// 	res.sendFile('index.html', {root: __dirname })
-// })
+app.get('/form.js', function (req, res) {
+	const { firstname, lastname } = req.query;
 
-// app.get('/secret.jpg', function (req, res) {
-// 	res.send('hello');
-// })
+	Promise.all([
+		q(client, 'set', 'name:first', firstname),
+		q(client, 'set', 'name:last', lastname),
+	])
+	.then(function (reply) {
+		console.log('redis replied', reply);
+		res.render('index', { firstname, lastname });
+	})
+	.catch(function (err) {
+		res.render('error');
+	});
+})
 
-// const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-// app.listen(PORT, function () {
-// 	console.log('Example app listening on port 3000!')
-// })
+app.listen(PORT, function () {
+	console.log('Example app listening on port 3000!')
+})
 
-client.set("Genevieve", "I'm having a party tonight, if you think there's too much noise, well too bad :P", redis.print);
+app.get('/secret-patch', function (req, res) {
 
-client.get('Genevieve', function(err, reply) {
-    console.log(reply);
+	client.set("Genevieve", "I'm having a party tonight, if you think there's too much noise, well too bad :P", redis.print);
+	client.get('Genevieve', function(err, reply) {
+		res.json(reply);
+	});
+});
+
+
+app.get('metro.png', function (req, res) {
+	res.sendFile('metro.png')
 });
