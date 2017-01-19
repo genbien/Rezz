@@ -9,6 +9,9 @@ const { t, q } = require('./utils.js');
 const redis  = require("redis");
 const client = redis.createClient();
 
+// requests
+var request = require('request');
+
 
 client.on('error', function (err) {
 	console.log('Error ' + err)
@@ -51,6 +54,10 @@ app.get('/message', function (req, res) {
 	.catch(function (err) {
 		res.render('error');
 	});
+	// q(client, 'keys', '*')
+	// 	.then(function(replies) {
+	// 		// so something with replies
+	// 	})
 })
 
 const PORT = process.env.PORT || 3000;
@@ -67,7 +74,34 @@ app.get('/secret-patch', function (req, res) {
 	});
 });
 
+client.keys('*', function (err, keys) {
+	if (err) return console.log(err);
 
-app.get('metro.png', function (req, res) {
-	res.sendFile('metro.png')
+	for(var i = 0, len = keys.length; i < len; i++) {
+		console.log(keys[i]);
+	}
 });
+
+// who knows if this works because the api call rate is SO LOW
+request('http://api.theysaidso.com/qod.json', function (error, response, body) {
+	if (!error && response.statusCode == 200) {
+		var quote = body.contents.quotes[0]['quote'];
+		var author = body.contents.quotes[0]['author'];
+
+		console.log('"' + quote + '" -- ' + author);
+
+		// var info = JSON.parse(body);
+		// console.log(body);
+		// console.log([info['contents']['quotes'][0]['quote'], info['contents']['quotes'][0]['author']]);
+	}
+	else {
+		console.log(error);
+	}
+})
+
+
+// app.get('/metro.png', function (req, res) {
+// 	res.sendFile('/Users/Genevieve/Desktop/node_experiment/metro.png')
+// });
+
+app.use(express.static('public'));

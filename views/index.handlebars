@@ -1,34 +1,6 @@
 <html>
 	<head>
-		<!-- <link rel="stylesheet" type="text/css" href="/style.css"> -->
-		<style>
-			* {
-				margin: 0;
-			}
-
-			body {
-				height: 100%;
-				width: 100%;
-			}
-
-			.flex-container {
-				display: -webkit-flex;
-				display: flex;
-				width: 100%;
-				height: 100%;
-				background-color: #778899;
-			}
-
-			.flex-item {
-				background-color: #fff;
-				flex-grow: 1;
-				align-items: stretch;
-				border-width: 3px;
-				border-style: solid;
-				border-color: rgba(0,0,0,.3);
-				margin: 10px;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="/style.css">
 	</head>
 	<body>
 		<!-- {{#if firstname}} -->
@@ -52,22 +24,21 @@
 
 		<div class="flex-container" action="message">
 			<div class="flex-item">
-				<img src="metro.png" alt="Horaires métro">
+				<img src="metro.png" class="metro_img" alt="Horaires métro">
 			</div>
 			<div class="flex-item">
-				mon immeuble
+				<img src="Chat.jpg" class="metro_img" alt="Travail de Paul">
+
 			</div>
 			<div class="flex-item">
 				{{#if usrname}}
-					{{#each usrname}}
 						<div>
 							<p>
-								<!-- "{{usrmessage}}"  <i>{{usrname}}</i> -->
+								"{{usrmessage}}"  <i>{{usrname}}</i>
 								<!-- {{usrmessage}}  <i>{{usrname}}</i> -->
-								{{@index}}. {{this}}
+
 							</p>
 						</div>
-					{{/each}}
 					<br><br>
 				{{/if}}
 				<form action="message">
