@@ -12,6 +12,8 @@ const client = redis.createClient();
 // requests
 var request = require('request');
 
+// END INCLUDES ----------------------------------------------------------------
+
 
 client.on('error', function (err) {
 	console.log('Error ' + err)
@@ -22,8 +24,6 @@ const app = express()
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
-// app.set('view engine', 'pug')
-
 app.get('/', function (req, res) {
 	Promise.all([
 		q(client, 'get', 'usrmessage'),
@@ -32,6 +32,8 @@ app.get('/', function (req, res) {
 	.then(function (values) {
 		const [usrmessage, usrname] = values;
 		res.render('index', { usrmessage, usrname });
+		get13_1();
+		// get_qotd(); // commented for call rate lowness
 	})
 	.catch(function (err) {
 		res.render('error');
@@ -66,14 +68,6 @@ app.listen(PORT, function () {
 	console.log('Example app listening on port 3000!')
 })
 
-// app.get('/secret-patch', function (req, res) {
-
-// 	client.set("Genevieve", "I'm having a party tonight, if you think there's too much noise, well too bad :P", redis.print);
-// 	client.get('Genevieve', function(err, reply) {
-// 		res.json(reply);
-// 	});
-// });
-
 client.keys('*', function (err, keys) {
 	if (err) return console.log(err);
 
@@ -84,44 +78,54 @@ client.keys('*', function (err, keys) {
 
 // GET QOTD INFOS --------------------------------------------------------------
 
-// who knows if this works because the api call rate is SO LOW
-// request('http://api.theysaidso.com/qod.json', function (error, response, body) {
-// 	if (!error && response.statusCode == 200) {
-// 		var quote = body.contents.quotes[0]['quote'];
-// 		var author = body.contents.quotes[0]['author'];
+// Commented bacause call rate is 10 calls per day :/
 
-// 		console.log('"' + quote + '" -- ' + author);
-
-// 		// var info = JSON.parse(body);
-// 		// console.log(body);
-// 		// console.log([info['contents']['quotes'][0]['quote'], info['contents']['quotes'][0]['author']]);
-// 	}
-// 	else {
-// 		console.log(error);
-// 	}
-// })
+// function get_qotd() {
+// 	request('http://api.theysaidso.com/qod.json', function (error, response, body) {
+// 		if (!error && response.statusCode == 200) {
+// 			var info = JSON.parse(body);
+// 			// console.log(body);
+// 			console.log(info.contents.quotes[0].quote);
+// 			console.log(info.contents.quotes[0].author);
+// 			const quote = info.contents.quotes[0].quote;
+// 			const author = info.contents.quotes[0].author;
+// 		}
+// 		else {
+// 			console.log(error);
+// 		}
+// 	});
+// }
 
 // END QOTD INFOS --------------------------------------------------------------
-
 
 // GET RER INFOS ---------------------------------------------------------------
 
 // get hours for metro line 13, station Montparnasse Bienvenue, direction Châtillon-Montrouge
-request('https://api-ratp.pierre-grimaud.fr/v2/metros/13/stations/152?destination=33', function (error, response, body) {
-	if (!error && response.statusCode == 200) {
-		var info = JSON.parse(body);
-		console.log(body);
-	}
-	else {
-		console.log(error);
-	}
-})
+function get13_1() {
+	request('https://api-ratp.pierre-grimaud.fr/v2/metros/13/stations/152?destination=33', function (error, response, body) {
+		if (!error && response.statusCode == 200) {
+			var info = JSON.parse(body);
+			// console.log(body);
+			console.log('Line:', info.response.informations.type, info.response.informations.line + '. Direction:', info.response.schedules[0].destination + '. Next in:', info.response.schedules[0].message + ',', info.response.schedules[1].message +'.');
+			const type13_1 = info.response.informations.type;
+			const line13_1 = info.response.informations.line;
+			const dest13_1 = info.response.schedules[0].destination;
+			const time13_1 = info.response.schedules[0].message;
+			const timebis13_1 = info.response.schedules[1].message;
+			res.render('index', { type13_1, line13_1, dest13_1, time13_1, timebis13_1 });
+		}
+		else {
+			console.log(error);
+		}
+	});
+}
 
 // get hours for metro line 13, station Montparnasse Bienvenue, direction Asnières-Gennevilliers Les Courtilles - Saint-Denis-Université
 request('https://api-ratp.pierre-grimaud.fr/v2/metros/13/stations/152?destination=32', function (error, response, body) {
 	if (!error && response.statusCode == 200) {
 		var info = JSON.parse(body);
-		console.log(body);
+		// console.log(body);
+		console.log('Line:', info.response.informations.type, info.response.informations.line + '. Direction:', info.response.schedules[0].destination + '. Next in:', info.response.schedules[0].message + ',', info.response.schedules[1].message +'.');
 	}
 	else {
 		console.log(error);
@@ -132,7 +136,8 @@ request('https://api-ratp.pierre-grimaud.fr/v2/metros/13/stations/152?destinatio
 request('https://api-ratp.pierre-grimaud.fr/v2/rers/B/stations/62?destination=3', function (error, response, body) {
 	if (!error && response.statusCode == 200) {
 		var info = JSON.parse(body);
-		console.log(body);
+		// console.log(body);
+		console.log('Line:', info.response.informations.type, info.response.informations.line + '. Direction:', info.response.informations.destination.name + '. Next at:', info.response.schedules[0].message + ',', info.response.schedules[1].message + '.');
 	}
 	else {
 		console.log(error);
@@ -143,17 +148,42 @@ request('https://api-ratp.pierre-grimaud.fr/v2/rers/B/stations/62?destination=3'
 request('https://api-ratp.pierre-grimaud.fr/v2/rers/B/stations/62?destination=4', function (error, response, body) {
 	if (!error && response.statusCode == 200) {
 		var info = JSON.parse(body);
-		console.log(body);
+		// console.log(body);
+		console.log('Line:', info.response.informations.type, info.response.informations.line + '. Direction:', info.response.informations.destination.name + '. Next at:', info.response.schedules[0].message + ',', info.response.schedules[1].message + '.');
 	}
 	else {
 		console.log(error);
 	}
 })
 
+// get hours for bus line 38, station Val de Grace, direction Porte D Orleans
+request('https://api-ratp.pierre-grimaud.fr/v2/bus/38/stations/2766?destination=70', function (error, response, body) {
+	if (!error && response.statusCode == 200) {
+		var info = JSON.parse(body);
+		// console.log(body);
+		console.log('Line:', info.response.informations.type, info.response.informations.line + '. Direction:', info.response.schedules[0].destination + '. Next in:', info.response.schedules[0].message + ',', info.response.schedules[1].message + '.');
+	}
+	else {
+		console.log(error);
+	}
+})
+
+// get hours for bus line 38, station Val de Grace, direction Gare du Nord
+request('https://api-ratp.pierre-grimaud.fr/v2/bus/38/stations/2766?destination=183', function (error, response, body) {
+	if (!error && response.statusCode == 200) {
+		var info = JSON.parse(body);
+		console.log('Line:', info.response.informations.type, info.response.informations.line + '. Direction:', info.response.schedules[0].destination + '. Next in:', info.response.schedules[0].message + ',', info.response.schedules[1].message +'.');
+	}
+	else {
+		console.log(error);
+	}
+})
+
+
 // END RER INFOS ---------------------------------------------------------------
 
-// app.get('/metro.png', function (req, res) {
-// 	res.sendFile('/Users/Genevieve/Desktop/node_experiment/metro.png')
-// });
+// FIND OTHER FILES ------------------------------------------------------------
 
 app.use(express.static('public'));
+
+// END -------------------------------------------------------------------------
