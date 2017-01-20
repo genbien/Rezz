@@ -5,6 +5,9 @@ const exphbs = require('express-handlebars')
 // promises, promises
 const { t, q } = require('./utils.js');
 
+// token
+const parisToken = require('./token.js');
+
 // redis
 const redis  = require("redis");
 const client = redis.createClient();
@@ -181,6 +184,20 @@ request('https://api-ratp.pierre-grimaud.fr/v2/bus/38/stations/2766?destination=
 
 
 // END RER INFOS ---------------------------------------------------------------
+
+// GET EVENTS ------------------------------------------------------------------
+
+request('https://api.paris.fr/api/data/1.0/Equipements/get_categories/?token=' + parisToken, function (error, response, body) {
+	if (!error && response.statusCode == 200) {
+		var info = JSON.parse(body);
+		console.log(body);
+	}
+	else {
+		console.log(error);
+	}
+})
+
+// END EVENTS ------------------------------------------------------------------
 
 // FIND OTHER FILES ------------------------------------------------------------
 
