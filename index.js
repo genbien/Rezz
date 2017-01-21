@@ -28,6 +28,10 @@ app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
 app.get('/', function (req, res) {
+	 res.sendFile(path.join(__dirname+'/login .html'));
+})
+
+app.get('/login', function (req, res) {
 	Promise.all([
 		q(client, 'get', 'usrmessage'),
 		q(client, 'get', 'usrname'),
@@ -43,6 +47,21 @@ app.get('/', function (req, res) {
 	});
 })
 
+// app.get('/', function (req, res) {
+// 	Promise.all([
+// 		q(client, 'get', 'usrmessage'),
+// 		q(client, 'get', 'usrname'),
+// 	])
+// 	.then(function (values) {
+// 		const [usrmessage, usrname] = values;
+// 		res.render('index', { usrmessage, usrname });
+// 		get13_1();
+// 		// get_qotd(); // commented for call rate lowness
+// 	})
+// 	.catch(function (err) {
+// 		res.render('error');
+// 	});
+// })
 
 
 app.get('/message', function (req, res) {
