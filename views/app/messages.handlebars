@@ -1,0 +1,25 @@
+<div class="container-fluid">
+	<hr />
+	<div class="list-group">
+	{{#each messages}}
+		<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+			<p class="mb-1">{{this.message}}</p>
+			<small>by {{this.username}}</small>
+		</a>
+	{{/each}}
+	</div>
+	<hr />
+	<form method="POST">
+		<div class="form-group row">
+			<div class="col-sm-3">
+				<input class="form-control" name="username" type="text" pattern="\w+" required placeholder="Username" />
+			</div>
+			<div class="col-sm-7">
+				<input class="form-control" name="message" type="text" required placeholder="Message" />
+			</div>
+			<div class="col-sm-2">
+				<button class="btn btn-primary btn-block" type="submit">Send!</button>
+			</div>
+		</div>
+	</form>
+</div>

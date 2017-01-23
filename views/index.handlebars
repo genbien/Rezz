@@ -1,65 +1,34 @@
-<html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="/style.css">
-	</head>
-	<body>
-		<!-- {{#if firstname}} -->
-		<!-- <img src="https://shechive.files.wordpress.com/2012/02/a-kitty-cat-7.jpg"/> -->
-		<!-- <a class="twitter-timeline" href="https://twitter.com/mairie5paris?lang=fr">A Twitter List by TwitterDev</a>
-		<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script> -->
-		<!-- <h1>Hello {{firstname}} {{lastname}}</h1> -->
-		<!-- {{/if}} -->
-
-		<!-- {{#unless firstname}} -->
-		<!-- <form action="form.js">
-			First name:<br>
-			<input type="text" name="firstname" value="first">
-			<br>
-			Last name:<br>
-			<input type="text" name="lastname" value="last">
-			<br><br>
-			<input type="submit" value="Submit">
-		</form> -->
-		<!-- {{/unless}} -->
-
-		<div class="flex-container" action="message">
-			<div class="flex-item">
-				<!-- <img src="metro.png" class="metro_img" alt="Horaires métro"> -->
-				<div>
-					<!-- NOT SHOWING UP :( -->
-					<!-- {{#if type13_1}} -->
-						<p>
-							[ {{type13_1}} ][ {{line13_1}} ][ {{dest13_1}} ][ {{time13_1}} ][ {{timebis13_1}}
-						</p>
-					<!-- {{/if}} -->
-				</div>
-			</div>
-			<div class="flex-item">
-				<img src="Chat.jpg" class="metro_img" alt="Travail de Paul">
-				<marquee>BLAH blah blah blah blah blah blah blah blah blah blah blah blah yay!</marquee>
-
-			</div>
-			<div class="flex-item">
-				{{#if usrname}}
-						<div>
-							<p>
-								"{{usrmessage}}"  <i>{{usrname}}</i>
-								<!-- {{usrmessage}}  <i>{{usrname}}</i> -->
-
-							</p>
-						</div>
-					<br><br>
-				{{/if}}
-				<form action="message">
-					<input type="text" name="usrmessage" value="Votre message" onfocus="if (this.value=='Votre message') this.value='';">
-					<br>
-					<input type="text" name="usrname" value="Votre nom" onfocus="if (this.value=='Votre nom') this.value='';">
-					<br><br>
-					<input type="submit" value="Submit">
-				</form>
-			</div>
+<div class="container-fluid">
+	<div class="row">
+	  <div class="col-md-6 col-h-12">
+			<iframe id="messages" src="/app/messages"></iframe>
 		</div>
+	  <div class="col-md-6 col-h-12">
+			<div class="row">
+			  <div class="col-md-6 col-h-6">
+					<iframe src="/app/weather"></iframe>
+			  </div>
+			  <div class="col-md-6 col-h-6">
+					<iframe id="ratp" src="/app/ratp"></iframe>
+			  </div>
+			</div>
+			<div class="row">
+			  <div class="col-md-6 col-h-6">
+					<iframe src="/app/twitterfeed"></iframe>
+			  </div>
+			  <div class="col-md-6 col-h-6">
+					<iframe src="/app/advertisement"></iframe>
+			  </div>
+			</div>
+	  </div>
+	</div>
+</div>
 
+<script>
+window.setInterval(reloadMessages, 10000);
+//window.setInterval(reloadRATP, 60000);
 
-	</body>
-</html>
+//function reloadMessages() {
+//  document.getElementById('messages').contentWindow.location.reload(true);
+//}
+</script>
