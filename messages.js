@@ -10,31 +10,65 @@ const redis = require("redis");
 const REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
 const redisClient = redis.createClient({ url: REDIS_URL });
 
+function keyToId(key) {
+	return parseInt(key.split(':')[1]);
+}
+
+function idToKey(id) {
+	return `msg:${id}`;
+}
+
+function inputToString(username, message, date) {
+	const data = `${username}:${message}:${date}`;
+}
+
+function stringToInput(value) {
+	const matches = /^([^:]+):(.+?):([^:]+)$/.exec(value);
+	const [_, username, message, date] = matches;
+	return { username, message, date };
+}
+
+
+function getDate() {
+	let d = new Date();
+	return d.getDate() +'/'+ (parseInt(d.getMonth()) + 1) +'/'+ d.getFullYear();
+}
+
 function get_messages() {
+	let keys;
+
 	return q(redisClient, 'keys', 'msg:*')
-		.then(function(keys) {
-			const ids = keys.map(function(key) {
-				return parseInt(key.split(':')[1]);
-			}).sort();
-			return Promise.all(ids.map(function (id) {
-				return q(redisClient, 'get', 'msg:'+id);
+		.then(function(unsortedKeys) {
+			keys = unsortedKeys.sort(function(a, b) {
+				return keyToId(a) - keyToId(b);
+			})
+			return Promise.all(keys.map(function (key) {
+				return q(redisClient, 'get', key);
 			}))
 		})
 		.then(function(values) {
-			return values.map(function (value) {
-				const matches = /^([^:]*):(.*)$/.exec(value);
-				const [_, username, message] = matches;
-				return { username, message };
+			return values.map(function (value, idx) {
+				const id = keyToId(keys[idx]);
+				const { username, message, date } = stringToInput(value);
+				return { id, username, message, date };
 			})
 		});
 }
 
+// function del_message(id) {
+// 	return q(redisClient, 'del', `msg:${id}`)
+// 		.then(function(key) {
+// 			let d = new Date();
+// 			let date = d.getDate()+'/'+ (parseInt(d.getMonth()) + 1) +'/'+d.getFullYear();
+// 			return q(redisClient, 'set', 'msg:'+key, username+':'+message+':'+date);
+// 		});
+// }
+
 function add_message(username, message) {
 	return q(redisClient, 'incr', 'key:msg')
 		.then(function(key) {
-			let d = new Date();
-			let date = d.getDate()+'/'+ (parseInt(d.getMonth()) + 1) +'/'+d.getFullYear();
-			return q(redisClient, 'set', 'msg:'+key, username+':'+message+':'+date);
+			const data = inputToString(username, message, getDate());
+			return q(redisClient, 'set', `msg:${key}`, data);
 		});
 }
 

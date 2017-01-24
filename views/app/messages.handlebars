@@ -3,8 +3,10 @@
 	<div class="list-group">
 	{{#each messages}}
 		<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-			<p class="mb-1">{{this.message}}</p>
-			<small>by {{this.username}}</small>
+			<label class="label label-primary">{{this.id}}</label>
+			<span class="mb-1">{{this.message}}</span>
+			<br/>
+			<small>by {{this.username}} on {{this.date}}</small>
 		</a>
 	{{/each}}
 	</div>
