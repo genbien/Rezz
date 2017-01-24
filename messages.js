@@ -6,7 +6,9 @@ const { t, q } = require('./utils.js');
 
 // redis
 const redis = require("redis");
-const redisClient = redis.createClient();
+
+const REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
+const redisClient = redis.createClient({ url: REDIS_URL });
 
 function get_messages() {
 	return q(redisClient, 'keys', 'msg:*')
