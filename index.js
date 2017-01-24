@@ -38,9 +38,8 @@ app.get('/app', function (req, res) {
 	res.render('index');
 });
 
-
-app.use('/app/messages', messagesApp);
-app.use('/app/ratp', ratpApp);
+app.use('/', messagesApp);
+app.use('/', ratpApp);
 
 // // GET QOTD INFOS --------------------------------------------------------------
 

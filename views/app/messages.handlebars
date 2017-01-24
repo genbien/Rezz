@@ -2,12 +2,19 @@
 	<hr />
 	<div class="list-group">
 	{{#each messages}}
-		<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+		<div class="list-group-item list-group-item-action flex-column align-items-start">
 			<label class="label label-primary">{{this.id}}</label>
 			<span class="mb-1">{{this.message}}</span>
 			<br/>
 			<small>by {{this.username}} on {{this.date}}</small>
-		</a>
+
+			<form action="/app/messages/delete/{{this.id}}" method="POST">
+				<button type="submit" class="btn btn-danger">
+					<i class="glyphicon glyphicon-trash"></i>
+				</button>
+			</form>
+
+		</div>
 	{{/each}}
 	</div>
 	<hr />

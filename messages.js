@@ -19,15 +19,18 @@ function idToKey(id) {
 }
 
 function inputToString(username, message, date) {
-	const data = `${username}:${message}:${date}`;
+	return `${username}:${message}:${date}`;
 }
 
 function stringToInput(value) {
 	const matches = /^([^:]+):(.+?):([^:]+)$/.exec(value);
-	const [_, username, message, date] = matches;
-	return { username, message, date };
+	if (!matches) {
+		return { username:'', message:'', date:'' };
+	} else {
+		const [_, username, message, date] = matches;
+		return { username, message, date };
+	}
 }
-
 
 function getDate() {
 	let d = new Date();
@@ -55,14 +58,9 @@ function get_messages() {
 		});
 }
 
-// function del_message(id) {
-// 	return q(redisClient, 'del', `msg:${id}`)
-// 		.then(function(key) {
-// 			let d = new Date();
-// 			let date = d.getDate()+'/'+ (parseInt(d.getMonth()) + 1) +'/'+d.getFullYear();
-// 			return q(redisClient, 'set', 'msg:'+key, username+':'+message+':'+date);
-// 		});
-// }
+function del_message(id) {
+ 	return q(redisClient, 'del', `msg:${id}`);
+}
 
 function add_message(username, message) {
 	return q(redisClient, 'incr', 'key:msg')
@@ -74,8 +72,9 @@ function add_message(username, message) {
 
 
 app = express();
+app.use(bodyParser.urlencoded());
 
-app.post('/', bodyParser.urlencoded(), function (req, res) {
+app.post('/app/messages', function (req, res) {
 	if (!req.body.username || !req.body.message)
 		return res.redirect('/app/messages');
 
@@ -88,14 +87,29 @@ app.post('/', bodyParser.urlencoded(), function (req, res) {
 		})
 });
 
-app.get('/', function (req, res) {
+app.post('/app/messages/delete/:id', function (req, res) {
+	del_message(req.params.id)
+		.catch(function () {
+		})
+		.then(function () {
+			res.redirect('/app/messages');
+		});
+});
+
+app.get('/app/messages', function (req, res) {
 	get_messages()
 		.then(function(messages) {
 			res.render('app/messages', { messages });
 		})
-		.catch(function() {
+		.catch(function(err) {
+			console.log(err)
 			res.render('error');
 		})
 });
+
+// app.delete('/', function (req, res) {
+// 	console.log(req.query);
+// });
+
 
 module.exports = app;

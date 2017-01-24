@@ -64,7 +64,7 @@ function get_ratp_infos(type, line, station, dest) {
 
 const app = express();
 
-app.get('/', function(req, res) {
+app.get('/app/ratp', function(req, res) {
   Promise.all([
     get_ratp_infos('metros', '13', METRO_13_STATION_MONTPARNASSE, METRO_13_DIRECTION_CHATILLON),
     get_ratp_infos('metros', '13', METRO_13_STATION_MONTPARNASSE, METRO_13_DIRECTION_ASNIERES),
