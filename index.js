@@ -84,10 +84,6 @@ app.use(express.static('public'));
 
 // var favicon = require('serve-favicon');
 // app.use(favicon('/favicon.ico'));
-
-const favicon = require('express-favicon');
-app.use(favicon(__dirname + '/favicon.ico'));
-
 // app.use(express.favicon(path.join(__dirname, 'public','favicon.ico')));
 
 // // END -------------------------------------------------------------------------
