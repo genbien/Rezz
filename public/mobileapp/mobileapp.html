@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<style>
+			.mobileapp {
+				height: 75%;
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+			body {
+				background-color: #00004C;
+			}
+		</style>
+		<script src="jquery-3.1.1.min.js"></script>
+		<script>
+			$(".mobileapp").on('click', function(){
+     			window.location = "http://www.google.com/";
+			});
+		</script>
+	</head>
+	<body>
+		<object class="mobileapp" data="/mobileapp/mobile.gif" alt="mobileapp"></object>
+		<!-- <img class="mobileapp" src="1.jpg" alt="mobileapp" /> -->
+	</body>
+</html>
