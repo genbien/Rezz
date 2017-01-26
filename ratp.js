@@ -2,6 +2,8 @@ const express = require('express');
 const request = require('request');
 const { t, q } = require('./utils.js');
 
+const moment = require('moment');
+
 const METRO_13_STATION_MONTPARNASSE = 152;
 const METRO_13_DIRECTION_CHATILLON = 33;
 const METRO_13_DIRECTION_ASNIERES = 32;
@@ -54,13 +56,18 @@ function get_ratp_infos(type, line, station, dest) {
       const dest = (type == 'rer') ?
         data.informations.destination.name :
         data.schedules[0].destination;
-      // const times = [
-      //   data.schedules[0].message,
-      //   data.schedules[1].message
-      // ];
       const times = data.schedules.map(function (s) {
-        return parseInt(s.message) == s.message ?
-          s.message : '--';
+        if (s.message.match(/([0-9]{1,2}:[0-9]{1,2})/)) {
+          const info = moment(RegExp.$1, "HH:mm");
+          const diff = info.diff(moment());
+          return ''+parseInt(moment.duration(diff).asMinutes());
+        }
+        else if (s.message.match(/([0-9]{1,2}) mn/)) {
+          return RegExp.$1;
+        }
+        else {
+          return '--'
+        }
       }).slice(0, 2);
       return { type: typename, line, name, dest, times };
     })
@@ -88,7 +95,12 @@ function get_my_ratp_infos() {
     get_ratp_infos('bus', '91', BUS_LINE_91_STATION_PORT_ROYAL, BUS_LINE_91_DIRECTION_BASTILLE),
     get_ratp_infos('rers', 'B', RER_LINE_B_STATION_PORT_ROYAL, RER_LINE_B_DIRECTION_ROBINSON),
     get_ratp_infos('rers', 'B', RER_LINE_B_STATION_PORT_ROYAL, RER_LINE_B_DIRECTION_CDG),
-  ]);
+  ]).then(function(results) {
+    results.forEach(function (result, idx) {
+      result.first = (idx % 2 == 0);
+    });
+    return results;
+  });
 }
 
 const app = express();
