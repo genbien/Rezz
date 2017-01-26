@@ -39,9 +39,17 @@ app.get('/app', function (req, res) {
 });
 
 app.get('/app2', function (req, res) {
-  messagesApp.get_messages()
-    .then(function (messages) {
-      res.render('sammy', { layout: null, messages });
+
+  Promise.all([
+    messagesApp.get_messages(),
+    ratpApp.get_my_ratp_infos()
+  ])
+    .then(function (values) {
+      const [messages, schedules] = values;
+      res.render('sammy', { layout: null, messages, schedules });
+    })
+    .catch(function (err) {
+      console.log('Oh noes ! <3', err)
     });
 });
 
