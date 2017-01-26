@@ -106,3 +106,4 @@ app.get('/app/ratp', function(req, res) {
 })
 
 module.exports = { app, get_my_ratp_infos };
+
