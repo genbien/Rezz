@@ -1,34 +1,59 @@
 <div class="container-fluid">
 	<hr />
-	<div class="list-group">
-	{{#each messages}}
-		<div class="list-group-item list-group-item-action flex-column align-items-start">
-			<label class="label label-primary">{{this.id}}</label>
-			<span class="mb-1">{{this.message}}</span>
-			<br/>
-			<small>by {{this.username}} on {{this.date}}</small>
+	<form method="POST">
+		<div class="form-group row">
+			<div class="col-sm-3">
+				<input class="form-control" name="username" type="text" pattern="\w+" required placeholder="Votre nom d'utilisateur" />
+			</div>
+			<div class="col-sm-9">
+				<input class="form-control" name="message" type="text" required placeholder="Votre message" />
+			</div>
+			<br />
+			<br />
+			<br />
+			<div class="col-sm-12">
+				<button class="btn btn-primary btn-block" type="submit" style="border: none;background-color:#37becb">Poster votre message</button>
+			</div>
+		</div>
+	</form>
+	<hr />
 
+	<div style="overflow:auto;">
+	{{#each messages}}
+		{{#if this.syndic }}
+			<div class="block-message syndic col-xs-12">
+		{{else}}
+			<div class="block-message col-xs-12">
+		{{/if}}
+
+		<div class="logo-user col-xs-3">
+			<div class="col-xs-4 np">
+				{{#if this.syndic }}
+					<img class="img-responsive" src="/css/Syndic.png" alt="logo user">
+				{{else}}
+					<img class="img-responsive" src="/css/Homme.png" alt="logo user">
+				{{/if}}
+			</div>
+			<div class="col-xs-8">
+				<p class="info-author">{{this.username}}</p>
+				<p class="info-date">{{this.date}}</p>
+			</div>
+		</div>
+
+		<div class="col-xs-9 np">
+			<div class="col-xs-12 np">
+				<p class="message-content">{{this.message}}</p>
+			</div>
 			<form action="/app/messages/delete/{{this.id}}" method="POST">
 				<button type="submit" class="btn btn-danger">
 					<i class="glyphicon glyphicon-trash"></i>
 				</button>
+				<button type="submit" class="btn" style="background-color:#37becb; color:#ffffff;">
+					<i class="glyphicon glyphicon-plus-sign"></i>
+				</button>
 			</form>
-
 		</div>
+	</div>
 	{{/each}}
 	</div>
-	<hr />
-	<form method="POST">
-		<div class="form-group row">
-			<div class="col-sm-3">
-				<input class="form-control" name="username" type="text" pattern="\w+" required placeholder="Username" />
-			</div>
-			<div class="col-sm-7">
-				<input class="form-control" name="message" type="text" required placeholder="Message" />
-			</div>
-			<div class="col-sm-2">
-				<button class="btn btn-primary btn-block" type="submit">Send!</button>
-			</div>
-		</div>
-	</form>
 </div>

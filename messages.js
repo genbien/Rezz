@@ -43,7 +43,7 @@ function get_messages() {
 	return q(redisClient, 'keys', 'msg:*')
 		.then(function(unsortedKeys) {
 			keys = unsortedKeys.sort(function(a, b) {
-				return keyToId(a) - keyToId(b);
+				return keyToId(b) - keyToId(a);
 			})
 			return Promise.all(keys.map(function (key) {
 				return q(redisClient, 'get', key);

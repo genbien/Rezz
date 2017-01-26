@@ -49,23 +49,25 @@ function get_ratp_infos(type, line, station, dest) {
       const info = JSON.parse(response.body);
       const data = info.response;
 
-      const typename = {'metros':'Métro','rers':'RER','bus':'Bus'}[type];
+      const typename = {'metros':'metro','rers':'rer','bus':'bus'}[type];
       const name = data.informations.station.name;
       const dest = (type == 'rer') ?
         data.informations.destination.name :
         data.schedules[0].destination;
-      const times = [
-        data.schedules[0].message,
-        data.schedules[1].message
-      ];
+      // const times = [
+      //   data.schedules[0].message,
+      //   data.schedules[1].message
+      // ];
+      const times = data.schedules.map(function (s) {
+        return parseInt(s.message) == s.message ?
+          s.message : '--';
+      }).slice(0, 2);
       return { type: typename, line, name, dest, times };
     })
 }
 
-const app = express();
-
-app.get('/app/ratp', function(req, res) {
-  Promise.all([
+function get_my_ratp_infos() {
+  return  Promise.all([
     get_ratp_infos('metros', '13', METRO_13_STATION_MONTPARNASSE, METRO_13_DIRECTION_CHATILLON),
     get_ratp_infos('metros', '13', METRO_13_STATION_MONTPARNASSE, METRO_13_DIRECTION_ASNIERES),
     get_ratp_infos('metros', '4', METRO_4_STATION_VAVIN, METRO_4_DIRECTION_MAIRIE_MONTROUGE),
@@ -86,15 +88,21 @@ app.get('/app/ratp', function(req, res) {
     get_ratp_infos('bus', '91', BUS_LINE_91_STATION_PORT_ROYAL, BUS_LINE_91_DIRECTION_BASTILLE),
     get_ratp_infos('rers', 'B', RER_LINE_B_STATION_PORT_ROYAL, RER_LINE_B_DIRECTION_ROBINSON),
     get_ratp_infos('rers', 'B', RER_LINE_B_STATION_PORT_ROYAL, RER_LINE_B_DIRECTION_CDG),
-  ])
+  ]);
+}
+
+const app = express();
+
+app.get('/app/ratp', function(req, res) {
+  get_my_ratp_infos()
     .then(function(schedules) {
       console.log(schedules);
       res.render('app/ratp', { schedules })
     })
     .catch(function(err) {
+      console.log(err);
       res.render('app/ratp', { err })
     });
 })
 
-module.exports = { app };
-
+module.exports = { app, get_my_ratp_infos };

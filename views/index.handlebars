@@ -1,23 +1,41 @@
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-6 col-h-12">
-			<iframe id="messages" src="/app/messages"></iframe>
-		</div>
-		<div class="col-md-6 col-h-12">
-			<div class="row">
-				<div class="col-md-6 col-h-6">
-					<iframe src="/app/weather"></iframe>
+<div class="wrapper">
+	<div class="box">
+		<div class="row">
+			<div class="column col-sm-3" id="sidebar" style="height:100%; background-color:#1b5f65; color: #ffffff">
+				<div style="height:20%">
+					<img src="/css/logowhite.png" style="height:80%;margin:auto;display:block;margin-top:20px;margin-left:20px">
 				</div>
-				<div class="col-md-6 col-h-6">
-					<iframe id="ratp" src="/app/ratp"></iframe>
-				</div>
+				<ul class="nav">
+					<li>
+						<a href="#forum" style="height:7%;color:#37becb;font-size:40px;background-color: transparent;text-decoration:none;font-variant: small-caps;">Annonces</a>
+					</li>
+					<hr />
+					<li>
+						<a href="#mysyndic" style="height:7%;color:#37becb;font-size:40px;background-color: transparent;text-decoration:none;font-variant: small-caps;">MySyndic</a>
+					</li>
+					<hr />
+					<li>
+						<a href="#mesvoisins" style="height:7%;color:#37becb;font-size:40px;background-color: transparent;text-decoration:none;font-variant: small-caps;">Mes Voisins</a>
+					</li>
+					<hr />
+					<li>
+						<a href="#moncompte" style="height:7%;color:#37becb;font-size:40px;background-color: transparent;text-decoration:none;font-variant: small-caps;">Mon Compte</a>
+					</li>
+					<hr />
+					<br />
+					<li>
+						<a href="#ecran" style="height:5%;color:#37becb;font-size:20px;background-color: transparent;text-decoration:none;font-variant: small-caps;">Ecran</a>
+					</li>
+					<li>
+						<a href="#mobile" style="height:5%;color:#37becb;font-size:20px;background-color: transparent;text-decoration:none;font-variant: small-caps;">Mobile</a>
+					</li>
+				</ul>
 			</div>
-			<div class="row">
-				<div class="col-md-6 col-h-6">
-					<iframe src="/app/twitterfeed"></iframe>
-				</div>
-				<div class="col-md-6 col-h-6">
-					<iframe src="/app/advertisement"></iframe>
+			<div class="container-fluid" style="background-color:#f5f5f5;">
+				<div class="row">
+					<div class="col-md-8 col-h-12" style="padding-top:20px;padding-bottom:20px;">
+						<iframe id="messages" src="/app/messages"></iframe>
+					</div>
 				</div>
 			</div>
 		</div>

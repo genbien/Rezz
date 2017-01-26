@@ -45,9 +45,64 @@ h1, h2
 
 .aujourdhui
 {
+	background-color: #fff;
+}
+
+.aujourdhui, .meteo
+{
 	height: 40%;
-	background-color: #F3F3F3;
+}
+
+.meteo
+{
+	background-color: #37BECB;
 	border-right: 2px solid #dadada;
+}
+
+.meteo-block
+{
+	text-align: center;
+	font-size: 1vw;
+	margin-top: 25px;
+}
+
+.meteo-block:first-child
+{
+	border-right: 1px solid #dadada;
+}
+
+.meteo-time
+{
+	text-transform: uppercase;
+}
+
+.meteo-celsius
+{
+	font-size: 1.75vw;
+	font-family: "Roboto";
+}
+
+.meteo-celsius::after
+{
+	content: "°C";
+}
+
+.hour, .date
+{
+	text-align: center;
+	color: #fff;
+	line-height: 1;
+}
+
+.hour
+{
+	font-size: 6vw;
+	font-weight: 700;
+}
+
+.date
+{
+	font-size: 1.25vw;
 }
 
 .pub
@@ -102,6 +157,7 @@ h1, h2
 .transports-box
 {
 	margin-top: 25px;
+	color: #111;
 	background-color: #fff;
 }
 
@@ -122,6 +178,7 @@ h1, h2
 {
 	position: absolute;
  	bottom: 0;
+ 	font-size: 4vw;
 }
 
 .transports-content
@@ -132,13 +189,23 @@ h1, h2
 
 .transports-size
 {
-	width: 4em;
-	height: 4em;
+	width: 8vw;
+	height: 8vw;
+}
+
+.bus.transports-size
+{
+	width: 12vw;
+}
+
+.bus.symbole.transports-size
+{
+	width: 8vw;
 }
 
 .transports-station
 {
-	font-size: 1.85vh;
+	font-size: 4.5vw;
 	font-family: "Open Sans", sans-serif;
 	font-weight: bold;
 }
@@ -151,6 +218,7 @@ h1, h2
 	background-color: #333;
 	font-family: "Open Sans", sans-serif;
 	font-weight: bold;
+	font-size: 5.5vw;
 	color: #fff;
 }
 
@@ -194,8 +262,10 @@ h1, h2
 
 .block-message.syndic
 {
-	/*margin-top: 0;*/
+	margin-top: 0;
 	border-radius: 0;
+	margin-top: 25px;
+	padding: 15px;
 }
 
 .message-content::before, .message-content::after
@@ -255,14 +325,15 @@ h1, h2
 
 .message-jour
 {
-	margin-top: 50px;
+	margin-top: 30px;
 }
 
-.message-jour>.col-xs-10>.message-content
+.message-jour>.col-xs-11>.message-content
 {
-	font-size: 2vw;
+	font-size: 2.75vw;
 	font-family: "Lobster";
 	color: #37BECB;
+	text-align: center;
 }
 
 
@@ -288,7 +359,7 @@ h1, h2
 	padding-left: 0;
 }
 
-@media screen and (max-width: 1440px)
+/*@media screen and (max-width: 1440px)
 {
 	.transports-size
 	{
@@ -301,7 +372,7 @@ h1, h2
 {
 	.transports-size
 	{
-		width: 2em;
-		height: 2em;
+		width: 3em;
+		height: 3em;
 	}
-}
+}*/

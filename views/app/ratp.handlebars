@@ -1,19 +1,35 @@
-<div class="container-fluid">
-	<hr />
-	<marquee direction="up">
-		<div class="list-group">
-		{{#each schedules}}
-			<li class="list-group-item">
-				<span class="list-group-item-heading">
-					<strong>{{this.type}} {{this.line}}</strong> - {{this.dest}}
-				</span>
-				<p>
-					{{#each this.times}}
-						<span class="label label-primary">{{this}}</span>
-					{{/each}}
-				</p>
-			</li>
-		{{/each}}
+
+<meta http-equiv="refresh" content="20">
+{{#each schedules}}
+	{{#if this.first}}
+	<div class="col-xs-12 np transports-box">
+		<div class="col-xs-12 np transports-header">
+			<div class="col-xs-6 np tranports-lignes">
+				<span class="col-xs-6 np {{this.type}} symbole transports-size">{{this.type}}</span>
+				<span class="col-xs-6 np {{this.type}} ligne{{this.line}} transports-size">Ligne {{this.line}}</span>
+			</div>
+			<div class="col-xs-3 transports-train">
+				<span>1er train</span>
+			</div>
+			<div class="col-xs-3 transports-train">
+				<span>2e train</span>
+			</div>
 		</div>
+	{{/if}}
+		<div class="transports-content col-xs-12 np">
+			<div class="col-xs-6">
+				<p class="transports-station">{{this.dest}}</p>
+			</div>
+			{{#each this.times}}
+			<div class="col-xs-3">
+				<p class="transports-time">{{this}}</p>
+			</div>
+			{{/each}}
+		</div>
+	{{#if this.last}}
 	</div>
-</div>
+	{{/if}}
+{{/each}}
+
+
+
