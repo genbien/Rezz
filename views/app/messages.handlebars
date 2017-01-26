@@ -3,10 +3,10 @@
 	<form method="POST">
 		<div class="form-group row">
 			<div class="col-sm-3">
-				<input class="form-control" name="username" type="text" pattern="\w+" required placeholder="Votre nom d'utilisateur" />
+				<input class="form-control" name="username" type="text" pattern="\w+" required placeholder="Nom d'utilisateur" />
 			</div>
 			<div class="col-sm-9">
-				<input class="form-control" name="message" type="text" required placeholder="Votre message" />
+				<input class="form-control" name="message" type="text" required placeholder="Message" />
 			</div>
 			<br />
 			<br />
@@ -35,19 +35,18 @@
 				{{/if}}
 			</div>
 			<div class="col-xs-8">
-				<p class="info-author">{{this.username}}</p>
-				<p class="info-date">{{this.date}}</p>
+				<p class="info-author" style="font-size: 20px;">{{this.username}}</p>
+				<p class="info-date" style="font-size: 12px;">{{this.date}}</p>
 			</div>
 		</div>
 
-		<div class="col-xs-9 np">
+		<div class="col-xs-8 np">
 			<div class="col-xs-12 np">
-				<p class="message-content">{{this.message}}</p>
+				<p class="message-content" style="font-size: 15px;">{{this.message}}</p>
 			</div>
+		</div>
+		<div class="col-xs-1 np">
 			<form action="/app/messages/delete/{{this.id}}" method="POST">
-				<button type="submit" class="btn btn-danger">
-					<i class="glyphicon glyphicon-trash"></i>
-				</button>
 				<button type="submit" class="btn" style="background-color:#37becb; color:#ffffff;">
 					<i class="glyphicon glyphicon-plus-sign"></i>
 				</button>
