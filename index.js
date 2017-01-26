@@ -38,8 +38,16 @@ app.get('/app', function (req, res) {
 	res.render('index');
 });
 
-app.use('/', messagesApp);
-app.use('/', ratpApp);
+app.get('/app2', function (req, res) {
+  messagesApp.get_messages()
+    .then(function (messages) {
+      res.render('sammy', { layout: null, messages });
+    });
+});
+
+
+app.use('/', messagesApp.app);
+app.use('/', ratpApp.app);
 
 // // GET QOTD INFOS --------------------------------------------------------------
 

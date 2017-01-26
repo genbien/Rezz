@@ -53,7 +53,8 @@ function get_messages() {
 			return values.map(function (value, idx) {
 				const id = keyToId(keys[idx]);
 				const { username, message, date } = stringToInput(value);
-				return { id, username, message, date };
+				const syndic = !!(username == 'Syndic' || username == 'Sammy')
+				return { id, username, message, date, syndic };
 			})
 		});
 }
@@ -112,4 +113,4 @@ app.get('/app/messages', function (req, res) {
 // });
 
 
-module.exports = app;
+module.exports = { app, get_messages };

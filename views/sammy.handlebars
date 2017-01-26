@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/metrodna.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:300,400,500,700,900|Orbitron|Oswald:300,400,700|Lobster" rel="stylesheet">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/main.css">
+  <title>Dashboard</title>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      function scrollDown(el) {
+        el.animate({ scrollTop: el[0].scrollHeight - el.height() + 10 }, 8000, function() { scrollUp(el) });
+      };
+      function scrollUp(el) {
+        el.animate({ scrollTop: 10 }, 8000, function() { scrollDown(el); });
+      };
+      scrollDown($(".transports-container"));
+    });
+  </script>
+</head>
+<body>
+  <div class="col-xs-12 np header"></div>
+  <div class="col-lg-9 col-md-9 col-xs-12 np left-block">
+    <div class="col-lg-12 col-md-12 col-xs-12 np voisins">
+      <div class="container-custom">
+        <div class="title col-xs-12">
+          <h1 class="col-xs-9 col-xs-push-3">ANNONCES</h1>
+        </div>
+
+
+        {{#each messages}}
+
+        {{#if this.syndic }}
+        <div class="block-message syndic col-xs-12">
+        {{else}}
+        <div class="block-message col-xs-12">
+        {{/if}}
+
+          <div class="logo-user col-xs-3">
+            <div class="col-xs-4 np">
+              {{#if this.syndic }}
+              <img class="img-responsive" src="images/Syndic.png" alt="logo user">
+              {{else}}
+              <img class="img-responsive" src="images/Homme.png" alt="logo user">
+              {{/if}}
+            </div>
+            <div class="col-xs-8">
+              <p class="info-author">{{this.username}}</p>
+              <p class="info-date">{{this.date}}</p>
+              <p class="info-number">06 11 22 33 44</p>
+            </div>
+          </div>
+
+          <div class="col-xs-9 np">
+            <div class="col-xs-12 np">
+              <p class="message-content">{{this.message}}</p>
+            </div>
+          </div>
+        </div>
+
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-xs-12 np pub">
+      <img class="img-responsive" src="images/pub2.jpg" alt="responsive image" />
+    </div>
+
+    <div class="col-xs-8 np header"></div>
+
+    <div class="col-lg-8 col-md-8 col-xs-12 np aujourdhui">
+      <div class="title col-xs-12">
+        <h1 class="col-xs-9 col-xs-push-3">AUJOURD'HUI</h1>
+      </div>
+
+      <div class="container-custom">
+        <div class="col-xs-12 block-message message-jour">
+          <div class="col-xs-10 col-xs-push-1">
+            <p class="message-content">Qui prend le coq pour guide aura un poulailler pour refuge.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-lg-3 col-md-3 col-xs-12 np right-block hidden-sm">
+    <div class="col-xs-12 np transports">
+      <div class="title col-xs-12">
+        <h1 class="col-xs-10 col-xs-push-1">TRANSPORTS</h1>
+      </div>
+
+      <div class="col-xs-10 col-xs-push-1 transports-container">
+        <div class="col-xs-12 transports-box">
+          <div class="col-xs-12 np transports-header">
+            <div class="col-xs-6 np tranports-lignes">
+              <span class="col-xs-6 np metro symbole transports-size">Metro</span>
+              <span class="col-xs-6 np metro ligne3 transports-size">Ligne 3</span>
+            </div>
+            <div class="col-xs-3 transports-train">
+              <span>1er train</span>
+            </div>
+            <div class="col-xs-3 transports-train">
+              <span>2e train</span>
+            </div>
+          </div>
+
+          <div class="transports-content col-xs-12 np">
+            <div class="col-xs-6">
+              <p class="transports-station">Pont de Levallois Becon</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">02</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">06</p>
+            </div>
+          </div>
+
+          <div class="transports-content col-xs-12 np">
+            <div class="col-xs-6">
+              <p class="transports-station">Gallieni</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">01</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">05</p>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-xs-12 transports-box">
+          <div class="col-xs-12 np transports-header">
+            <div class="col-xs-6 np tranports-lignes">
+              <span class="col-xs-6 np metro symbole transports-size">Metro</span>
+              <span class="col-xs-6 np metro ligne14 transports-size">Ligne 14</span>
+            </div>
+            <div class="col-xs-3 transports-train">
+              <span>1er train</span>
+            </div>
+            <div class="col-xs-3 transports-train">
+              <span>2e train</span>
+            </div>
+          </div>
+
+          <div class="transports-content col-xs-12 np">
+            <div class="col-xs-6">
+              <p class="transports-station">Olympiades</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">03</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">09</p>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-xs-12 transports-box">
+          <div class="col-xs-12 np transports-header">
+            <div class="col-xs-6 np tranports-lignes">
+              <span class="col-xs-6 np metro symbole transports-size">Metro</span>
+              <span class="col-xs-6 np metro ligne12 transports-size">Ligne 12</span>
+            </div>
+            <div class="col-xs-3 transports-train">
+              <span>1er train</span>
+            </div>
+            <div class="col-xs-3 transports-train">
+              <span>2e train</span>
+            </div>
+          </div>
+
+          <div class="transports-content col-xs-12 np">
+            <div class="col-xs-6">
+              <p class="transports-station">Front Populaire</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">00</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">09</p>
+            </div>
+          </div>
+
+          <div class="transports-content col-xs-12 np">
+            <div class="col-xs-6">
+              <p class="transports-station">Mairie d'Issy</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">06</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">13</p>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-xs-12 transports-box">
+          <div class="col-xs-12 np transports-header">
+            <div class="col-xs-6 np tranports-lignes">
+              <span class="col-xs-6 np metro symbole transports-size">Metro</span>
+              <span class="col-xs-6 np metro ligne9 transports-size">Ligne 9</span>
+            </div>
+            <div class="col-xs-3 transports-train">
+              <span>1er train</span>
+            </div>
+            <div class="col-xs-3 transports-train">
+              <span>2e train</span>
+            </div>
+          </div>
+
+          <div class="transports-content col-xs-12 np">
+            <div class="col-xs-6">
+              <p class="transports-station">Pont de Sevres</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time"><span>00</span></p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time"><span>10</span></p>
+            </div>
+          </div>
+
+          <div class="transports-content col-xs-12 np">
+            <div class="col-xs-6">
+              <p class="transports-station">Mairie de Montreuil</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">06</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">13</p>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-xs-12 transports-box">
+          <div class="col-xs-12 np transports-header">
+            <div class="col-xs-6 np tranports-lignes">
+              <span class="col-xs-6 np rer symbole transports-size">Rer</span>
+              <span class="col-xs-6 np rer ligneE transports-size">E</span>
+            </div>
+            <div class="col-xs-3 transports-train">
+              <span>1er train</span>
+            </div>
+            <div class="col-xs-3 transports-train">
+              <span>2e train</span>
+            </div>
+          </div>
+
+          <div class="transports-content col-xs-12 np">
+            <div class="col-xs-6">
+              <p class="transports-station">Haussman Saint Lazare</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">09</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">27</p>
+            </div>
+          </div>
+
+          <div class="transports-content col-xs-12 np">
+            <div class="col-xs-6">
+              <p class="transports-station">Chelles</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">04</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">20</p>
+            </div>
+          </div>
+
+          <div class="transports-content col-xs-12 np">
+            <div class="col-xs-6">
+              <p class="transports-station">Tournan</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">01</p>
+            </div>
+            <div class="col-xs-3">
+              <p class="transports-time">18</p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
