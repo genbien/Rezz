@@ -6,7 +6,7 @@
 /* Documentation : http://www.clementoriol.com/metrodna/documentation */
 /**********************************************************************/
 
-.metro, .tram, .transilien, .rer {
+.metro, .tram, .transilien, .rer , .bus{
   position: relative;
   left: 0.2em;
   display: inline-block;
@@ -209,3 +209,11 @@
 	background-image:url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJsaWduZTEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHdpZHRoPSIxMDAwcHgiIGhlaWdodD0iMTAwMHB4IiB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMDAwIDEwMDAiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8cGF0aCBpZD0icmVjdDU2NzQiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iI0VBMDA3NyIgc3Ryb2tlLXdpZHRoPSI3MCIgZD0iTTE3MC41MDgsMzVoNjU4Ljk4M0M5MDQuMzM4LDM1LDk2NSw5NS42NzMsOTY1LDE3MC41MDkKCXY2NTguOTgyQzk2NSw5MDQuMzMyLDkwNC4zMzMsOTY1LDgyOS40OTEsOTY1SDE3MC41MDhDOTUuNjY3LDk2NSwzNSw5MDQuMzI2LDM1LDgyOS40OTFWMTcwLjUwOQoJQzM0Ljg5NSw5NS42NjgsOTUuNTE4LDM1LDE3MC40MjUsMzVIMTcwLjUwOHoiLz4KPHBhdGggaWQ9InRleHQyNjUxIiBmaWxsPSIjRUQwNjc3IiBkPSJNMzEyLjIyLDI2Ni4yNnYyNTYuMjhjMC40MjcsNzIuODkyLDE2LjYxNCwxMjYuMzEsNDguNTY1LDE2MC4yNzEKCWMzMS45NSwzMy45NTcsNzcuMTA2LDUwLjcyOSwxMzUuNDcsNTAuMzVjNjAuNDU3LDAuMTQyLDEwNy4zNy0xNy4wMTQsMTQwLjc0LTUxLjQ1OWMzMy4zNzEtMzQuNDQ0LDUwLjMwNS04Ny4wNDcsNTAuNzg0LTE1Ny43OQoJdi0yNTcuNjVINTg0LjE3OXYyNjQuNDU5Yy0wLjEwNSw0MC40NTMtNy4zODQsNzAuNDcxLTIxLjgwNiw5MC4wNThjLTE0LjQyMywxOS41ODctMzUuMzMyLDI5LjMyMy02Mi43MDMsMjkuMjI2CgljLTI2LjczMS0wLjAzNS00Ny4yMzQtMTAuMDI5LTYxLjUyMi0yOS45OThjLTE0LjI4LTE5Ljk2LTIxLjQ5NS00OS43MTktMjEuNjM5LTg5LjI4NHYtMjY0LjQ3aC0xMDQuMjhMMzEyLjIyLDI2Ni4yNnoiLz4KPC9zdmc+);
 }
 
+.bus.symbole{
+    background-image:url(https://upload.wikimedia.org/wikipedia/commons/4/49/Paris_logo_bus_jms.svg);
+}
+
+
+.bus.ligne38{
+	background-image:('/bus_38.svg');
+}
