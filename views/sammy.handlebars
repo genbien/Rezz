@@ -91,7 +91,9 @@
 						let d = new Date();
 						console.log(d.getHours());
 						console.log(d.getMinutes());
-						let time = d.getHours()+':'+d.getMinutes();
+						// let time = d.getHours()+':'+d.getMinutes();
+						let time = d.getHours()+':'+ ('0' + d.getMinutes()).slice(-2);
+
 						document.getElementById("time").innerHTML = time;
 					</script>
 					<script>
